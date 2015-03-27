@@ -4,6 +4,9 @@ import java.util.Timer;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,12 +16,13 @@ import org.springframework.web.context.request.async.DeferredResult;
 import se.r2m.bigint.casinofront.game.GameEngine;
 import se.r2m.bigint.casinofront.game.GameInput;
 import se.r2m.bigint.casinofront.game.GameOutput;
-import se.r2m.bigint.casinofront.game.LocalGameEngine;
 import se.r2m.bigint.casinofront.model.GameResult;
 import se.r2m.bigint.casinofront.processing.ProcessingTask;
 
 @RestController
 public class FrontController {
+
+    private static Logger log = LoggerFactory.getLogger(FrontController.class);
 
     private static final String GAME_ID_PREFIX = UUID.randomUUID().toString();
 
@@ -26,12 +30,15 @@ public class FrontController {
 
     private final AtomicLong counter = new AtomicLong();
 
-    private final GameEngine engine = new LocalGameEngine();
+    @Autowired
+    private GameEngine engine;
+    // private final GameEngine engine = new LocalGameEngine();
 
     private final Timer timer = new Timer();
 
     @RequestMapping("/")
     public String index() {
+
         return "This is the casino front!";
     }
 
@@ -77,5 +84,7 @@ public class FrontController {
         return deferredResult;
 
     }
+
+
 
 }

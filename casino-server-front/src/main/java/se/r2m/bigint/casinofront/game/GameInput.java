@@ -25,4 +25,17 @@ public class GameInput {
         return playedAmount;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("GameInput [playerId=");
+        builder.append(playerId);
+        builder.append(", playedNumber=");
+        builder.append(playedNumber);
+        builder.append(", playedAmount=");
+        builder.append(playedAmount);
+        builder.append("]");
+        return builder.toString();
+    }
+
 }
